@@ -32,8 +32,15 @@ rmdir /s /q "%~dp0\.Xil"
 goto END
 
 :RUN_BUILD
+rem Run Vivado batch file with Tcl build script
+rem Tcl script has two arguments:
+rem - run Vivado GUI
+rem - use derictive "exit" at Tcl script
+rem After this, batch file changes run directory to the vivado project ("vivado/" by default) and call for Vivado with GUI
 ECHO Run Tcl build script...
-call C:\Xilinx\Vivado\2020.1\bin\vivado.bat -mode batch -source "%~dp0\scripts\build.tcl" -tclargs 0
+call C:\Xilinx\Vivado\2020.1\bin\vivado.bat -mode batch -source "%~dp0\scripts\build.tcl" -tclargs 0 1
+cd "%~dp0\vivado"
+C:\Xilinx\Vivado\2020.1\bin\unwrapped\win64.o\vvgl.exe C:\Xilinx\Vivado\2020.1\bin\vivado.bat -project "%~dp0\vivado\mp_z7010.xpr"
 goto RUN_CLEANUP
 
 :END

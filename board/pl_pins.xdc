@@ -3,16 +3,16 @@
 #create_clock -add -name sys_clk_pin -period 20.00 -waveform {0 10} [get_ports { PL_CLK_50M }];
 
 
-# #LED (active low), PL_LED2 shared with J1N[17]
-# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN P15 } [get_ports "PL_LED1"]; #IO_L24P_T3_34
-# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN P15 } [get_ports "PL_LED2"]; #IO_L2N_T0_34
+#LED (active low), PL_LED2 shared with J1N[17]
+set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN P15 } [get_ports { PL_LED1 }]; #IO_L24P_T3_34
+set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN U12 } [get_ports { PL_LED2 }]; #IO_L2N_T0_34
 
 
 # #Button (active low), PL_KEY2 shared with J1P[17]
-# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN P16 } [get_ports "PL_KEY1"]; #IO_L24N_T3_34
-# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN T12 } [get_ports "PL_KEY2"]; #IO_L2P_T0_34
+# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN P16 } [get_ports { PL_KEY1 }]; #IO_L24N_T3_34
+# set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN T12 } [get_ports { PL_KEY2 }]; #IO_L2P_T0_34
 
-# #JP1 (BANK34, 3V3)
+# #JP1 (BANK34, 3V3), J1N[17] shared with PL_LED2
 # set_property -dict { IOSTANDARD LVCMOS33 } [get_ports -filter "J1*"];
 # set_property PACKAGE_PIN N17 [get_ports { J1P[0] }];
 # set_property PACKAGE_PIN R16 [get_ports { J1P[1] }];

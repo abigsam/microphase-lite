@@ -76,6 +76,18 @@ apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_ex
 validate_bd_design
 save_bd_design
 
+#Connect PL LEDs to '1'
+add_files -fileset constrs_1 -norecurse ${constr_files}/pl_pins.xdc
+set_property used_in_synthesis false [get_files  ${constr_files}/pl_pins.xdc]
+create_bd_port -dir O PL_LED1
+create_bd_port -dir O PL_LED2
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 plleddis1
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 plleddis2
+connect_bd_net [get_bd_ports PL_LED1] [get_bd_pins plleddis1/dout]
+connect_bd_net [get_bd_ports PL_LED2] [get_bd_pins plleddis2/dout]
+
 #Make wrapper
 make_wrapper -files [get_files ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/${bd_name}.bd] -top
 add_files -norecurse ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/hdl/${bd_name}_wrapper.v
+
+exit

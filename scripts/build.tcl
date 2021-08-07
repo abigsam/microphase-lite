@@ -8,6 +8,9 @@ set constr_files ${script_path}/../board
 set bd_name "design_1"
 set ps_name "proc_sys"
 
+#Aux. processes
+source ${script_path}/aux_proc.tcl
+
 #Gets arguments
 set use_gui 1
 set exit_when_end 0
@@ -95,6 +98,9 @@ connect_bd_net [get_bd_ports PL_LED2] [get_bd_pins plleddis2/dout]
 #Make wrapper
 make_wrapper -files [get_files ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/${bd_name}.bd] -top
 add_files -norecurse ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/hdl/${bd_name}_wrapper.v
+
+#Create xcleanup.bat file
+create_prj_cleanup ${prj_path} ${prj_name}
 
 if { ${exit_when_end} > 0} {
     exit

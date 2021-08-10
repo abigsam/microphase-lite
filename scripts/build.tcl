@@ -96,8 +96,8 @@ connect_bd_net [get_bd_ports PL_LED1] [get_bd_pins plleddis1/dout]
 connect_bd_net [get_bd_ports PL_LED2] [get_bd_pins plleddis2/dout]
 
 #Make wrapper
-make_wrapper -files [get_files ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/${bd_name}.bd] -top
-add_files -norecurse ${prj_path}/${prj_name}.srcs/sources_1/bd/${bd_name}/hdl/${bd_name}_wrapper.v
+set wrapper_path [make_wrapper -fileset sources_1 -files [ get_files -norecurse ${bd_name}.bd] -top]
+add_files -norecurse -fileset sources_1 $wrapper_path
 
 #Create xcleanup.bat file
 create_prj_cleanup ${prj_path} ${prj_name}

@@ -95,6 +95,10 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 plleddis2
 connect_bd_net [get_bd_ports PL_LED1] [get_bd_pins plleddis1/dout]
 connect_bd_net [get_bd_ports PL_LED2] [get_bd_pins plleddis2/dout]
 
+#Validate
+validate_bd_design
+save_bd_design
+
 #Make wrapper
 set wrapper_path [make_wrapper -fileset sources_1 -files [ get_files -norecurse ${bd_name}.bd] -top]
 add_files -norecurse -fileset sources_1 $wrapper_path

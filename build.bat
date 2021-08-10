@@ -22,11 +22,11 @@ IF ERRORLEVEL 1 GOTO RUN_BUILD
 :RUN_CLEANUP_PRJ
 ECHO Cleanup project folder...
 rmdir /s /q "%~dp0\vivado"
+del "%~dp0\*.log"
 
 :RUN_CLEANUP
 ECHO Cleanup Vivado files...
 del "%~dp0\*.jou"
-del "%~dp0\*.log"
 del "%~dp0\*.dmp"
 rmdir /s /q "%~dp0\.Xil"
 goto END
@@ -38,7 +38,7 @@ rem - run Vivado GUI
 rem - use derictive "exit" at Tcl script
 rem After this, batch file changes run directory to the vivado project ("vivado/" by default) and call for Vivado with GUI
 ECHO Run Tcl build script...
-call C:\Xilinx\Vivado\2020.1\bin\vivado.bat -mode batch -source "%~dp0\scripts\build.tcl" -tclargs 0 1
+call C:\Xilinx\Vivado\2020.1\bin\vivado.bat -mode batch -nojournal -source "%~dp0\scripts\build.tcl" -tclargs 0 1
 cd "%~dp0\vivado"
 C:\Xilinx\Vivado\2020.1\bin\unwrapped\win64.o\vvgl.exe C:\Xilinx\Vivado\2020.1\bin\vivado.bat -project "%~dp0\vivado\mp_z7010.xpr"
 goto RUN_CLEANUP

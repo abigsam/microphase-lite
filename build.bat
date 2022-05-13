@@ -8,17 +8,20 @@ ECHO # Author: abigsam@gmail.com
 ECHO # Vivado version: 2021.1
 ECHO #########################################################
 set vivado_path=C:\Xilinx\Vivado\2021.1
+set build_type="create_bd"
 ECHO.
 ECHO Avaliable options:
-ECHO [1] Build project
-ECHO [2] Cleanup Git repository
-ECHO [3] Exit
+ECHO [1] Build Block design project
+ECHO [2] Build RTL project (PL only)
+ECHO [3] Cleanup Git repository
+ECHO [4] Exit
 ECHO.
 
-CHOICE /C 123 /N /M "Enter your choice:"
-IF ERRORLEVEL 3 GOTO END
-IF ERRORLEVEL 2 GOTO RUN_CLEANUP_PRJ
-IF ERRORLEVEL 1 GOTO RUN_BUILD
+CHOICE /C 1234 /N /M "Enter your choice:"
+IF ERRORLEVEL 4 GOTO END
+IF ERRORLEVEL 3 GOTO RUN_CLEANUP_PRJ
+IF ERRORLEVEL 2 GOTO RUN_BUILD_RTL
+IF ERRORLEVEL 1 GOTO RUN_BUILD_BD
 
 :RUN_CLEANUP_PRJ
 ECHO Cleanup project folder...
@@ -32,14 +35,16 @@ del "%~dp0\*.dmp"
 rmdir /s /q "%~dp0\.Xil"
 goto END
 
-:RUN_BUILD
+:RUN_BUILD_RTL
+set build_type="create_rtl"
+:RUN_BUILD_BD
 rem Run Vivado batch file with Tcl build script
 rem Tcl script has two arguments:
 rem - run Vivado GUI
 rem - use derictive "exit" at Tcl script
 rem After this, batch file changes run directory to the vivado project ("vivado/" by default) and call for Vivado with GUI
 ECHO Run Tcl build script...
-CALL :RUN_VIVADO_SCRIPT "%~dp0\scripts\build.tcl" 0 1
+CALL :RUN_VIVADO_SCRIPT "%~dp0\scripts\build.tcl" %build_type%
 CALL :OPEN_VIVADO_PROJECT "vivado" "mp_z7010"
 goto RUN_CLEANUP
 

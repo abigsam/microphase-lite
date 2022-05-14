@@ -36,7 +36,7 @@ rmdir /s /q "%~dp0\.Xil"
 goto END
 
 :RUN_BUILD_RTL
-set build_type="create_rtl"
+set build_type="create_hdl"
 :RUN_BUILD_BD
 rem Run Vivado batch file with Tcl build script
 rem Tcl script has two arguments:

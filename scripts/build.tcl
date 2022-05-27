@@ -19,6 +19,7 @@ set prj_name        "mp_z7010"
 set part_name       "xc7z010clg400-1"
 set prj_path        [file normalize ${script_path}/../vivado]
 set board_path      [file normalize ${script_path}/../board]
+set ip_repo_path    [file normalize ${script_path}/../ip_repo]
 
 #Aux. processes
 source ${script_path}/aux_proc.tcl
@@ -39,6 +40,12 @@ create_project ${prj_name} ${prj_path} -part ${part_name} -force
 
 #Add constraints
 add_files -fileset constrs_1 -norecurse [findFiles ${board_path} "*.xdc"]
+
+#Add IP repository
+set prj_iprepo_list [get_property ip_repo_paths [current_project]]
+lappend prj_iprepo_list ${ip_repo_path}
+set_property  ip_repo_paths ${prj_iprepo_list} [current_project]
+update_ip_catalog
 
 #Create block design or use pure HDL (FPGA only)
 if {${create_rtl_design} == 0} {

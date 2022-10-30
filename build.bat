@@ -87,7 +87,7 @@ EXIT /B 0
         pause
         exit
     )
-    pushd "%~dp0\vivado"
+    pushd "%~dp0\%~1"
     call %vivado_vvgl_path% %vivado_bat_path% -project %prj_path%
     popd
 EXIT /B 0

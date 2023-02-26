@@ -118,7 +118,7 @@ create_clock -add -name sys_clk_pin -period 20.00 -waveform {0 10} [get_ports { 
 # set_property PACKAGE_PIN U19 [get_ports { HDMI1_CLK_N }];
 
 
-#Ethernet PHY (RTL8201F), ETH_MII_rst_n shared with J2P[17]
+#Ethernet PHY (RTL8201F), ETH_MII_rst_n shared with JP2[39] (GPIO2_17P)
 # set_property -dict { IOSTANDARD LVCMOS33 } [get_ports "ETH_MII*"];
 # set_property -dict { IOSTANDARD LVCMOS33 } [get_ports "MDIO_ETHERNET_0*"];
 # set_property PACKAGE_PIN J14 [get_ports { ETH_MII_rxd[0] }];
